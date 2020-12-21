@@ -1,0 +1,6 @@
+exclude_patterns:
+- "var/"
+- "web/"
+- "app/"
+- "bin/"
+- "docs/"
