@@ -1,6 +1,8 @@
 exclude_patterns:
 - "var/"
-- "web/"
-- "app/"
+- "public/"
+- "config/"
 - "bin/"
 - "docs/"
+- "translations/"
+- "migrations/"
