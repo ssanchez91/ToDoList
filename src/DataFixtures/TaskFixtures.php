@@ -12,17 +12,15 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 class TaskFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
-    {
-        $user = $this->getReference(UserFixtures::USER_REFERENCE.rand(1,5));        
-
+    {              
         for($i=0; $i < 10 ; $i++)
         {
+            $user = $this->getReference(UserFixtures::USER_REFERENCE.rand(1,5));
             $task = new Task();
-            $task->setTitle('Ma première tâche');
+            $task->setTitle('Ma tâche numéro : '.$i);
             $task->setContent('Ceci est le contenu de ma tâche numéro : '.$i.'.');
             $task->setCreatedAt(new DateTime());
             $task->setAuthor($user);
-
             $manager->persist($task);
         }
 
