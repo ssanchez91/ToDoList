@@ -35,6 +35,7 @@ class UserFixtures extends Fixture
             $user->setUsername(self::USER_REFERENCE.$i);
             $user->setEmail(self::USER_REFERENCE.$i.'@yopmail.com');
             $user->setPassword($this->passwordEncoder->encodePassword($user,self::USER_REFERENCE.$i));
+            $user->setRoles(['ROLE_USER']);
 
             $manager->persist($user);
 
