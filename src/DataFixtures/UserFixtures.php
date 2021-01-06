@@ -14,6 +14,9 @@ class UserFixtures extends Fixture
      */
     private $passwordEncoder;
 
+    /**
+     * Constante represent user
+     */
     public const USER_REFERENCE = 'user_';
 
     /**
