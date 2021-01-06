@@ -20,7 +20,12 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
             $task->setTitle('Ma tâche numéro : '.$i);
             $task->setContent('Ceci est le contenu de ma tâche numéro : '.$i.'.');
             $task->setCreatedAt(new DateTime());
-            $task->setAuthor($user);
+            
+            if($i > 5)
+            {
+                $task->setAuthor($user);
+            }
+            
             $manager->persist($task);
         }
 

@@ -1,4 +1,0 @@
-twig:
-    default_path: '%kernel.project_dir%/templates'
-    exception_controller: null # This is needed to fix the deprecation in Symfony 4.4
-    strict_variables:     false
