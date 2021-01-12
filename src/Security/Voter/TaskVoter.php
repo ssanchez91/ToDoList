@@ -19,23 +19,10 @@ class TaskVoter extends Voter
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
-        // @codeCoverageIgnoreStart
-        // if the user is anonymous, do not grant access
-        if (!$user instanceof UserInterface) {
-            return false;
-        }
-        // @codeCoverageIgnoreEnd
-
-        // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
             case 'DELETE':
-                // logic to determine if the user can EDIT
                 if (!$subject->getAuthor()) {
-                    if (in_array('ROLE_ADMIN', $user->getRoles())) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return in_array('ROLE_ADMIN', $user->getRoles());
                 }
 
                 return $subject->getAuthor()->getId() == $user->getId();
@@ -43,8 +30,5 @@ class TaskVoter extends Voter
                 // return true or false
                 break;
         }
-        // @codeCoverageIgnoreStart
-        return false;
-        // @codeCoverageIgnoreEnd
     }
 }
