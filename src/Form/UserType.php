@@ -17,37 +17,21 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Les deux mots de passe doivent correspondre.',
-                'required' => true,
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Tapez le mot de passe à nouveau'],
-            ])
+            ->add('password', RepeatedType::class, ['type' => PasswordType::class, 'invalid_message' => 'Les deux mots de passe doivent correspondre.',
+                'required' => true, 'first_options'  => ['label' => 'Mot de passe'], 'second_options' => ['label' => 'Tapez le mot de passe à nouveau']])
             ->add('email', EmailType::class, ['label' => 'Adresse email'])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
-                    'Administrateur' =>  'ROLE_ADMIN'
-                ],
-                'data' => ['ROLE_USER'],
-                'expanded' => true,
-                'required' => true,
-                'multiple' => false
-            ])
-        ;
+            ->add('roles', ChoiceType::class, ['choices' => ['Utilisateur' => 'ROLE_USER', 'Administrateur' =>  'ROLE_ADMIN'],
+                'data' => ['ROLE_USER'], 'expanded' => true, 'required' => true, 'multiple' => false]);
 
-        $builder->get('roles')
-            ->addModelTransformer(new CallbackTransformer(
-                function ($rolesAsArray) {
-                    // transform the array to a string
-                    return count($rolesAsArray) ? $rolesAsArray[0] : null;
-                },
-                function ($rolesAsString) {
-                    // transform the string back to an array
-                    return [$rolesAsString];
-                }
-            ))
-        ;
+        $builder->get('roles')->addModelTransformer(new CallbackTransformer(
+            function ($rolesAsArray) {
+                // transform the array to a string
+                return count($rolesAsArray) ? $rolesAsArray[0] : null;
+            },
+            function ($rolesAsString) {
+                // transform the string back to an array
+                return [$rolesAsString];
+            }
+        ));
     }
 }
