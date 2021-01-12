@@ -6,4 +6,3 @@ exclude_patterns:
 - "docs/"
 - "translations/"
 - "migrations/"
-- "tests/"
