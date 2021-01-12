@@ -2,7 +2,7 @@
 <html lang="en">
  <head>
   <meta charset="UTF-8">
-  <title>Dashboard for C:\wamp64\www\ToDoList\src\Entity</title>
+  <title>Dashboard for C:\wamp64\www\ToDoList\src\Security</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../.css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../.css/nv.d3.min.css" rel="stylesheet" type="text/css">
@@ -17,7 +17,7 @@
       <nav aria-label="breadcrumb">
        <ol class="breadcrumb">
          <li class="breadcrumb-item"><a href="../index.html">C:\wamp64\www\ToDoList\src</a></li>
-         <li class="breadcrumb-item"><a href="index.html">Entity</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Security</a></li>
          <li class="breadcrumb-item active">(Dashboard)</li>
 
        </ol>
@@ -173,7 +173,7 @@ $(document).ready(function() {
       .yAxis.tickFormat(d3.format('d'));
 
     d3.select('#methodCoverageDistribution svg')
-      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,27], "Method Coverage"))
+      .datum(getCoverageDistributionData([0,0,0,0,0,0,0,0,0,0,0,10], "Method Coverage"))
       .transition().duration(500).call(chart);
 
     nv.utils.windowResize(chart.update);
@@ -223,7 +223,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Cyclomatic Complexity');
 
     d3.select('#classComplexity svg')
-      .datum(getComplexityData([[100,14,"<a href=\"Task.php.html#13\">App\\Entity\\Task<\/a>"],[100,18,"<a href=\"User.php.html#17\">App\\Entity\\User<\/a>"]], 'Class Complexity'))
+      .datum(getComplexityData([[100,13,"<a href=\"AppAuthenticator.php.html#23\">App\\Security\\AppAuthenticator<\/a>"],[100,7,"<a href=\"Voter\/TaskVoter.php.html#9\">App\\Security\\Voter\\TaskVoter<\/a>"]], 'Class Complexity'))
       .transition()
       .duration(500)
       .call(chart);
@@ -247,7 +247,7 @@ $(document).ready(function() {
     chart.yAxis.axisLabel('Method Complexity');
 
     d3.select('#methodComplexity svg')
-      .datum(getComplexityData([[100,1,"<a href=\"Task.php.html#50\">App\\Entity\\Task::__construct<\/a>"],[100,1,"<a href=\"Task.php.html#56\">App\\Entity\\Task::getId<\/a>"],[100,1,"<a href=\"Task.php.html#61\">App\\Entity\\Task::getCreatedAt<\/a>"],[100,1,"<a href=\"Task.php.html#66\">App\\Entity\\Task::setCreatedAt<\/a>"],[100,1,"<a href=\"Task.php.html#71\">App\\Entity\\Task::getTitle<\/a>"],[100,1,"<a href=\"Task.php.html#76\">App\\Entity\\Task::setTitle<\/a>"],[100,1,"<a href=\"Task.php.html#81\">App\\Entity\\Task::getContent<\/a>"],[100,1,"<a href=\"Task.php.html#86\">App\\Entity\\Task::setContent<\/a>"],[100,1,"<a href=\"Task.php.html#91\">App\\Entity\\Task::isDone<\/a>"],[100,1,"<a href=\"Task.php.html#96\">App\\Entity\\Task::toggle<\/a>"],[100,2,"<a href=\"Task.php.html#101\">App\\Entity\\Task::getAuthor<\/a>"],[100,2,"<a href=\"Task.php.html#106\">App\\Entity\\Task::setAuthor<\/a>"],[100,1,"<a href=\"User.php.html#54\">App\\Entity\\User::__construct<\/a>"],[100,1,"<a href=\"User.php.html#59\">App\\Entity\\User::getId<\/a>"],[100,1,"<a href=\"User.php.html#64\">App\\Entity\\User::getUsername<\/a>"],[100,1,"<a href=\"User.php.html#69\">App\\Entity\\User::setUsername<\/a>"],[100,1,"<a href=\"User.php.html#74\">App\\Entity\\User::getSalt<\/a>"],[100,1,"<a href=\"User.php.html#79\">App\\Entity\\User::getPassword<\/a>"],[100,1,"<a href=\"User.php.html#84\">App\\Entity\\User::setPassword<\/a>"],[100,1,"<a href=\"User.php.html#89\">App\\Entity\\User::getEmail<\/a>"],[100,1,"<a href=\"User.php.html#94\">App\\Entity\\User::setEmail<\/a>"],[100,1,"<a href=\"User.php.html#99\">App\\Entity\\User::getRoles<\/a>"],[100,1,"<a href=\"User.php.html#108\">App\\Entity\\User::eraseCredentials<\/a>"],[100,1,"<a href=\"User.php.html#116\">App\\Entity\\User::getTasks<\/a>"],[100,2,"<a href=\"User.php.html#121\">App\\Entity\\User::addTask<\/a>"],[100,3,"<a href=\"User.php.html#131\">App\\Entity\\User::removeTask<\/a>"],[100,1,"<a href=\"User.php.html#143\">App\\Entity\\User::setRoles<\/a>"]], 'Method Complexity'))
+      .datum(getComplexityData([[100,1,"<a href=\"AppAuthenticator.php.html#34\">App\\Security\\AppAuthenticator::__construct<\/a>"],[100,2,"<a href=\"AppAuthenticator.php.html#42\">App\\Security\\AppAuthenticator::supports<\/a>"],[100,1,"<a href=\"AppAuthenticator.php.html#48\">App\\Security\\AppAuthenticator::getCredentials<\/a>"],[100,3,"<a href=\"AppAuthenticator.php.html#63\">App\\Security\\AppAuthenticator::getUser<\/a>"],[100,1,"<a href=\"AppAuthenticator.php.html#80\">App\\Security\\AppAuthenticator::checkCredentials<\/a>"],[100,2,"<a href=\"AppAuthenticator.php.html#88\">App\\Security\\AppAuthenticator::getPassword<\/a>"],[100,2,"<a href=\"AppAuthenticator.php.html#93\">App\\Security\\AppAuthenticator::onAuthenticationSuccess<\/a>"],[100,1,"<a href=\"AppAuthenticator.php.html#103\">App\\Security\\AppAuthenticator::getLoginUrl<\/a>"],[100,2,"<a href=\"Voter\/TaskVoter.php.html#11\">App\\Security\\Voter\\TaskVoter::supports<\/a>"],[100,5,"<a href=\"Voter\/TaskVoter.php.html#19\">App\\Security\\Voter\\TaskVoter::voteOnAttribute<\/a>"]], 'Method Complexity'))
       .transition()
       .duration(500)
       .call(chart);
