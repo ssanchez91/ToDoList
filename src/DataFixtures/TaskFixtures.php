@@ -15,27 +15,17 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
     {              
         for($i=0; $i < 10 ; $i++)
         {
-            $user = $this->getReference(UserFixtures::USER_REFERENCE.rand(1,5));
+            
             $task = new Task();
             $task->setTitle('Ma tâche numéro : '.$i);
             $task->setContent('Ceci est le contenu de ma tâche numéro : '.$i.'.');
-            $task->setCreatedAt(new DateTime());
-            
-            if($i > 5)
+            $task->setCreatedAt(new DateTime());            
+            if($i == 8)
             {
-                if($i == 8)
-                {
-                    $task->setAuthor($this->getReference(UserFixtures::USER_REFERENCE.'1'));
-                }
-                else
-                {
-                    $task->setAuthor($user);
-                }                
-            }
-            
+                $task->setAuthor($this->getReference(UserFixtures::USER_REFERENCE.'1'));    
+            }            
             $manager->persist($task);
         }
-
         $manager->flush();
     }
 
