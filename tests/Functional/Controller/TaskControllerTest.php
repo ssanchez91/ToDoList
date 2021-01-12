@@ -135,20 +135,19 @@ class TaskControllerTest extends WebTestCase
         $this->client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
     }
-
+    
     public function testDeleteTaskSuccess()
     {
         $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->userId));
         $this->client->request('GET', '/tasks/'.$this->task->getId().'/delete');
-        
+     
         $session = $this->client->getContainer()->get('session');
         $flashes = $session->getBag('flashes')->all();
         $this->assertArrayHasKey('success', $flashes);
         $this->assertCount(1, $flashes['success']);
         $this->assertEquals("La tâche a bien été supprimée.", current($flashes['success']));
-        
+     
         $this->assertResponseRedirects('/tasks', Response::HTTP_FOUND);
-
     }
 
     public function testDeleteTaskForbidden()
