@@ -5,9 +5,9 @@ security:
             algorithm: auto
     
     providers:
-        doctrine:
+        app_user_provider:
             entity:
-                class: App:User
+                class: App\Entity\User
                 property: username
     
     firewalls:
@@ -16,19 +16,24 @@ security:
             security: false
 
         main:
-            # logout_on_user_change: true
             anonymous: lazy
-            pattern: ^/
-            form_login:
-                login_path: login
-                check_path: login_check
-                always_use_default_target_path:  true
-                default_target_path:  /
-            logout: ~
+            http_basic: ~
+            provider: app_user_provider
+            guard:
+                authenticators:
+                    - App\Security\AppAuthenticator
+            logout:
+                path: logout
+                # where to redirect after logout
+                target: login
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/users, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/users, roles: ROLE_ADMIN }
+        - { path: ^/tasks, roles: ROLE_USER }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
