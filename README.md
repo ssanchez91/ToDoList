@@ -2,10 +2,10 @@
 
 <a href="https://codeclimate.com/github/ssanchez91/ToDoList/maintainability"><img src="https://api.codeclimate.com/v1/badges/ef8614340af01b657945/maintainability" /></a>
 
-<h3>ScreenShot /tasks page :</h3>
+<h3>Screen /tasks page :</h3>
 
 
-![frontend](https://github.com/ssanchez91/BileMo/blob/main/public/Doc/Visuel_Doc.PNG)
+![frontend]https://github.com/ssanchez91/ToDoList/blob/main/docs/Visuel.PNG)
 
 <h3>Documentation</h3>
 <p>L'ensemble du code source a été commenté. L'utilsation de PhpDocBlocker a permis de générer une documentation claire et précise.</p>
