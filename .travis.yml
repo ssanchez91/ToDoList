@@ -1,16 +1,15 @@
 language: php
 php:
-  - '7.3'
+  - '7.3.5'
 
 services:
-  - mysql  
+  - mysql
+
+install:
+  - composer install --no-interaction
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('test') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+  - ./bin/console doctrine:database:create --env=test
+  - ./bin/console doctrine:migration:migrate --env=test --no-interaction
 
 script:
-  - composer install
-  - php bin/console doctrine:database:create
-  - php bin/console make:migration
-  - php bin/console doctrine:migrations:migrate
   - php bin/phpunit
-
-before_script:
-  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('test') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
