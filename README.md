@@ -10,36 +10,22 @@
 <h3>Documentation</h3>
 <p>L'ensemble du code source a été commenté. L'utilsation de PhpDocBlocker a permis de générer une documentation claire et précise.</p>
 
-<h3>Diagrammes UML</h3>
-Les schémas UML se situent dans le dossier diagrams_UML à la racine du projet:
-<ul>
-  <li>Diagramme de classe</li>
-  <li>Diagramme de cas d'utilsation</li>
-  <li>Diagramme de séquence</li>
-  <li>MPD</li>
-</ul>  
-Les fonctoinnalités décrites dans les diagrammes concernent les clients, les utilisateurs et les téléphones.
-
 <h3>Langage de programmation</h3>
 
-<ul>
-</ul>
-<li>L'API REST BileMo a été développé en PHP via le framework Symfony 5.2</li>
-<li>L'utilisation de librairy telles que FosRestBundle, JMSSerializer et Hateoas ont été utilisées pour gérer l'ensemble des contraintes associées à la création d'une API REST.
+L'application ToDoListe a été initiallisé ave la version 3.1 du framework Symfony et a été migrée vers la dernière version LTS ( SF 4.4)
 
 <hr>
-<h2>Installation</h2>
+<h2>Installation du projet</h2>
 <h3>Environnement nécessaire</h3>
 <ul>
-  <li>Symfony 5.2.*</li>
   <li>PHP 7.3.*</li>
-  <li>MySql 8</li>
+  <li>MySql 5.7</li>
 </ul>
 <h3>Suivre les étapes suivantes :</h3>
 <ul>
   <li><b>Etape 1.1 :</b> Cloner le repository suivant depuis votre terminal :</li>
   <pre>
-  <code>git clone https://github.com/ssanchez91/BileMo.git</code></pre>     
+  <code>git clone https://github.com/ssanchez91/ToDoList.git</code></pre>     
   <li>
    <li><b>Etape 1.2 :</b> Executer la commande suivante :</li>
   <pre>
@@ -57,27 +43,10 @@ Les fonctoinnalités décrites dans les diagrammes concernent les clients, les u
     symfony console doctrine:migrations:migrate<br/>
     symfony console doctrine:fictures:load  
   </code></pre>
-  <li><b>Etape 5.1 :</b> Générer vos clés pour l'utilisation de JWT Token</li>
+  <li><b>Etape 5.1 :</b> Executer dan svotre terminal les tests pour vous assurer que tout foncionne correctement</li>
   <pre><code>
-    $ mkdir -p config/jwt
-    $ openssl genpkey -out config/jwt/private.pem -aes256 -algorithm rsa -pkeyopt rsa_keygen_bits:4096
-    $ openssl pkey -in config/jwt/private.pem -out config/jwt/public.pem -pubout
-  </code></pre>
-  <li><b>Etape 5.2 :</b> Renseigner vos paramètres de configuration dans votre ficher .env</li>
-  <pre><code>
-    ###> lexik/jwt-authentication-bundle ###
-    JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
-    JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
-    JWT_PASSPHRASE=VotrePassePhrase
-    ###< lexik/jwt-authentication-bundle ###
-  </code></pre>
-  <li><b>Etape 5.3 :</b> Générer un Token pour pouvoir tester l'API </li>
-  <pre><code>
-    $ Symfony console lexik:jwt:generate-token customer_0@yopmail.fr
-    
-    => eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MDcwNzcwMT..._MsImV4cCI6MTYzODYx
+    php bin/phpunit
   </code></pre>
 </ul>
   
-<h3>Vous êtes fin prêt pour tester votre API!</h3>
-<p>Pour afficher la doucmentation en ligne et tester l'APIrendez-vous à l'adresse suivante votre navigateur : <em>http://yourAdress.domain.fr/doc/api</em></p>
+<h3>Vous êtes fin prêt pour lancer l'application ToDoList!</h3>
