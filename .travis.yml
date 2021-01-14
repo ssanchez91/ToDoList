@@ -6,9 +6,11 @@ services:
   - mysql  
 
 script:
-   - composer install
-   - php bin/console doctrine:database:create
-   - php bin/console make:migration
-   - php bin/console doctrine:migrations:migrate
+  - composer install
+  - php bin/console doctrine:database:create
+  - php bin/console make:migration
+  - php bin/console doctrine:migrations:migrate
+  - php bin/phpunit
 
-   - php bin/phpunit
+before_script:
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('test') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
