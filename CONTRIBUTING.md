@@ -13,5 +13,5 @@ Here you are because you want to contribute to this project. Very good !
 
 ## About Symfony
 
-This application develop with Symfony framework, please check the [Symfony Documentation](https://symfony.com/doc/4.4/best_practices.html) to follow best practices.
+This application develop with Symfony framework, please check the [Issues](https://github.com/ssanchez91/ToDoList/issues) to follow best practices.
 
