@@ -1,4 +1,5 @@
 language: php
+
 php:
   - '7.3.5'
 
@@ -7,9 +8,10 @@ services:
 
 install:
   - composer install --no-interaction
-  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('test') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
-  - ./bin/console doctrine:database:create --env=test
-  - ./bin/console doctrine:migration:migrate --env=test --no-interaction
+  - echo "USE mysql;\nUPDATE user SET authentication_string=PASSWORD('test') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+  - php bin/console doctrine:database:create
+  - php bin/console doctrine:migration:migrate --no-interaction
+
 
 script:
   - php bin/phpunit
