@@ -12,5 +12,6 @@ install:
   - php bin/console doctrine:database:create
   - php bin/console doctrine:migration:migrate --no-interaction
 
+
 script:
   - php bin/phpunit
