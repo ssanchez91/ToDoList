@@ -2,16 +2,20 @@
 
 Bienvenue dans ce guide du développeur qui vous permettra de contribuer aux évolutions de l'application avec les bonnes pratiques à suivre.
 
+### 2. Prerequisites
+
+*   Have installed the project in local by following  instructions.
+
 <br/>
 <b>Prérequis</b>
 <ol>
-    <li>Installez le projet en suivant les instructions dans le fichier [README.md](README.md)</li>
+    <li>Installez le projet en suivant les instructions dans le fichier [README.md](README.md) .</li>
 </ol>
 <br/>
 <b>Contribution à l'application</b>
 <ol>
     <li>Créez une nouvelle branche sous Git</li>
-    <li>Codez une nouvelle fonctionnalité ou codez un fix pour un bug encore inconnu (Attention de bien vérifier la liste des [Issues](https://https://github.com/ssanchez91/ToDoList/issues) en cours avant de commencer votre développement)</li>
+    <li>Codez une nouvelle fonctionnalité ou codez un fix pour un bug encore inconnu (Attention de bien vérifier la liste des [Issues](github.com/ssanchez91/ToDoList/issues) en cours avant de commencer votre développement)</li>
     <li>Testez votre code avec PHPUnit</li>
     <li><em>Commit</em> et <em>push</em> de votre code sur votre branche</li>
 </ol>
