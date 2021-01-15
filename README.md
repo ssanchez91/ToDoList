@@ -1,6 +1,7 @@
 # ToDoList
 
 <a href="https://codeclimate.com/github/ssanchez91/ToDoList/maintainability"><img src="https://api.codeclimate.com/v1/badges/ef8614340af01b657945/maintainability" /></a>
+[![Build Status](https://travis-ci.com/ssanchez91/ToDoList.svg?branch=main)](https://travis-ci.com/ssanchez91/ToDoList)
 
 <h3>Screen /tasks page :</h3>
 
