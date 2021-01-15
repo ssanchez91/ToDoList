@@ -44,7 +44,7 @@ L'application ToDoListe a été initiallisé ave la version 3.1 du framework Sym
     symfony console doctrine:migrations:migrate<br/>
     symfony console doctrine:fictures:load  
   </code></pre>
-  <li><b>Etape 5.1 :</b> Executer dan svotre terminal les tests pour vous assurer que tout foncionne correctement</li>
+  <li><b>Etape 5.1 :</b> Executer dans votre terminal les tests pour vous assurer que tout foncionne correctement</li>
   <pre><code>
     php bin/phpunit
   </code></pre>
