@@ -9,7 +9,7 @@ install:
   - composer install --no-interaction
   - echo "USE mysql;\nUPDATE user SET authentication_string=PASSWORD('test') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
   - php bin/console doctrine:database:create
-  - php bin/console doctrine:migration:migrate
+  - php bin/console doctrine:migration:migrate --no-interaction
 
 script:
   - php bin/phpunit
