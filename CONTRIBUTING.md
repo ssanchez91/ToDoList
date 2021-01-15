@@ -29,6 +29,6 @@ Bienvenue dans ce guide du développeur qui vous permettra de contribuer aux év
 *    <a href="https://twig.symfony.com/doc/2.x/coding_standards.html" target="_blank">Twig Coding Standards</a>
 *    <a href="https://www.doctrine-project.org/projects/doctrine-coding-standard/en/8.2/index.html" target="_blank">Doctrine Coding Standards</a>
 
-### 5. Rappels dur les bonnes pratiques Symfony
+### 5. Rappels sur les bonnes pratiques Symfony
 
 *    <a href="https://symfony.com/doc/4.4/best_practices.html" target="_blank">Symfony Best Practices</a>
