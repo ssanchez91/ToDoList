@@ -5,7 +5,7 @@ Bienvenue dans ce guide du développeur qui vous permettra de contribuer aux év
 <br/>
 <b>Prérequis</b>
 <ol>
-    <li>Installez le projet en suivant les instructions dans le fichier [README.MD](README.md)</li>
+    <li>Installez le projet en suivant les instructions dans le fichier [README.md](README.md)</li>
 </ol>
 <br/>
 <b>Contribution à l'application</b>
