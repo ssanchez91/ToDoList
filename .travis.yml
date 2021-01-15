@@ -14,4 +14,4 @@ install:
 
 
 script:
-  - php bin/phpunit
+  - php bin/phpunit --coverage-html public/test
