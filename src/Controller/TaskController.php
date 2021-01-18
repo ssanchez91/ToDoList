@@ -61,7 +61,7 @@ class TaskController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function editTask(Task $task, Request $request, TaskRepository $taskRepository): Response
+    public function edit(Task $task, Request $request, TaskRepository $taskRepository): Response
     {
         $form = $this->createForm(TaskType::class, $task);             
         $form->handleRequest($request);
