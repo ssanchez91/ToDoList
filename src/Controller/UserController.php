@@ -16,17 +16,20 @@ class UserController extends AbstractController
      * List all users
      *
      * @Route("/users", name="user_list")
-     * 
+     *
      * @return Response
      */
     public function list(): Response
     {
-        return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository('App:User')->findAll()]);
+        return $this->render(
+            'user/list.html.twig',
+            ['users' => $this->getDoctrine()->getRepository('App:User')->findAll()]
+        );
     }
 
     /**
      * Create a new user
-     * 
+     *
      * @Route("/users/create", name="user_create")
      *
      * @param Request $request
@@ -55,15 +58,14 @@ class UserController extends AbstractController
 
     /**
      * Edit a user function
-     * 
+     *
      * @Route("/users/{id}/edit", name="user_edit")
      *
      * @param User $user
      * @param Request $request
-     * @param UserPasswordEncoderInterface $userPasswordEncoderInterface
      * @return Response
      */
-    public function edit(User $user, Request $request, UserPasswordEncoderInterface $userPasswordEncoderInterface): Response
+    public function edit(User $user, Request $request): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);

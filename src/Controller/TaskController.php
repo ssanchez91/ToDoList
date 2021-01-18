@@ -16,19 +16,22 @@ class TaskController extends AbstractController
      * list all Tasks
      *
      * @Route("/tasks", name="task_list")
-     * 
+     *
      * @return Response
      */
     public function list(): Response
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findAll()]);
+        return $this->render(
+            'task/list.html.twig',
+            ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findAll()]
+        );
     }
 
     /**
      * Create new task
      *
      * @Route("/tasks/create", name="task_create")
-     * 
+     *
      * @param Request $request
      * @return Response
      */
@@ -57,13 +60,13 @@ class TaskController extends AbstractController
      *
      * @Route("/tasks/{id}/edit", name="task_edit", methods={"GET", "POST"})
      *
-     * @param $id 
+     * @param $id
      * @param Request $request
      * @return Response
      */
     public function edit(Task $task, Request $request, TaskRepository $taskRepository): Response
     {
-        $form = $this->createForm(TaskType::class, $task);             
+        $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -80,7 +83,7 @@ class TaskController extends AbstractController
 
     /**
      * Toogle task function
-     * 
+     *
      * @Route("/tasks/{id}/toggle", name="task_toggle")
      *
      * @param Task $task
@@ -91,15 +94,13 @@ class TaskController extends AbstractController
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        if($task->isDone())
-        {
-            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle()));
+        if ($task->isDone()) {
+            $flash = sprintf('La tâche %s a bien été marquée comme faite.', $task->getTitle());
+        } else {
+            $flash = sprintf('La tâche %s a bien été marquée comme non terminée.', $task->getTitle());
         }
-        else
-        {
-            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme non terminée.', $task->getTitle()));
 
-        }        
+        $this->addFlash('success', sprintf($flash, $task->getTitle()));
 
         return $this->redirectToRoute('task_list');
     }
@@ -108,7 +109,7 @@ class TaskController extends AbstractController
      * Delete a task
      *
      * @Route("/tasks/{id}/delete", name="task_delete")
-     * 
+     *
      * @param Task $task
      * @return Response
      */

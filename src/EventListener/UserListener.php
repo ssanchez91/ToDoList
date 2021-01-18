@@ -47,7 +47,7 @@ class UserListener
      * call prePersist function when a user is updated
      *
      * @param LifecycleEventArgs $args
-     * 
+     *
      */
     public function preUpdate(LifecycleEventArgs $args)
     {

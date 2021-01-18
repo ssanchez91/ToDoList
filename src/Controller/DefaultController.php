@@ -10,7 +10,7 @@ class DefaultController extends AbstractController
 {
     /**
      * Show Home Page
-     * 
+     *
      * @Route("/", name="homepage")
      *
      * @return Response

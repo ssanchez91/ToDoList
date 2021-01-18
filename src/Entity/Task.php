@@ -17,7 +17,7 @@ class Task
 {
     /**
      * @var Int
-     * 
+     *
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -26,14 +26,14 @@ class Task
 
     /**
      * @var DateTimeInterface
-     * 
+     *
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
      * @var String
-     * 
+     *
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
      */
@@ -41,7 +41,7 @@ class Task
 
     /**
      * @var String
-     * 
+     *
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Vous devez saisir du contenu.")
      */
@@ -49,14 +49,14 @@ class Task
 
     /**
      * @var bool
-     * 
+     *
      * @ORM\Column(type="boolean")
      */
     private $isDone;
 
     /**
      * @var User
-     * 
+     *
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
      * @ORM\JoinColumn(nullable=true)
      */
