@@ -13,17 +13,26 @@ use Symfony\Component\HttpFoundation\Response;
 class TaskController extends AbstractController
 {
     /**
+     * list all Tasks
+     *
      * @Route("/tasks", name="task_list")
+     * 
+     * @return Response
      */
-    public function listAction()
+    public function list(): Response
     {
         return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository('App:Task')->findAll()]);
     }
 
     /**
+     * Create new task
+     *
      * @Route("/tasks/create", name="task_create")
+     * 
+     * @param Request $request
+     * @return Response
      */
-    public function createAction(Request $request)
+    public function create(Request $request): Response
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
@@ -44,7 +53,7 @@ class TaskController extends AbstractController
     }
 
     /**
-     * editAction function
+     * edit a Task
      *
      * @Route("/tasks/{id}/edit", name="task_edit", methods={"GET", "POST"})
      *
@@ -52,14 +61,11 @@ class TaskController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function editAction(Task $task, Request $request, TaskRepository $taskRepository): Response
+    public function edit(Task $task, Request $request, TaskRepository $taskRepository): Response
     {
-
-        // $task = $taskRepository->find($id);
-        
-        $form = $this->createForm(TaskType::class, $task);
-        
+        $form = $this->createForm(TaskType::class, $task);             
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'La tâche a bien été modifiée.');
@@ -73,9 +79,14 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Toogle task function
+     * 
      * @Route("/tasks/{id}/toggle", name="task_toggle")
+     *
+     * @param Task $task
+     * @return Response
      */
-    public function toggleTaskAction(Task $task)
+    public function toggleTask(Task $task): Response
     {
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
@@ -94,9 +105,14 @@ class TaskController extends AbstractController
     }
 
     /**
+     * Delete a task
+     *
      * @Route("/tasks/{id}/delete", name="task_delete")
+     * 
+     * @param Task $task
+     * @return Response
      */
-    public function deleteTaskAction(Task $task)
+    public function deleteTask(Task $task): Response
     {
         $this->denyAccessUnlessGranted('DELETE', $task, 'Vous n\'êtes pas autorisé à supprimer cette tâche.');
 

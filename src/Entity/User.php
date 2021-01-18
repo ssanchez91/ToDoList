@@ -12,11 +12,13 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Table("user")
  * @ORM\Entity
- * @UniqueEntity("email")
+ * @UniqueEntity("username")
  */
 class User implements UserInterface
 {
     /**
+     * @var Int
+     * 
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -24,17 +26,23 @@ class User implements UserInterface
     private $id;
 
     /**
+     * @var String
+     * 
      * @ORM\Column(type="string", length=25, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir un nom d'utilisateur.")
      */
     private $username;
 
     /**
+     * @var String
+     * 
      * @ORM\Column(type="string", length=255)
      */
     private $password;
 
     /**
+     * @var String
+     * 
      * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank(message="Vous devez saisir une adresse email.")
      * @Assert\Email(message="Le format de l'adresse n'est pas correcte.")
@@ -42,60 +50,97 @@ class User implements UserInterface
     private $email;
 
     /**
+     * @var ArrayCollection
+     * 
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="Author", orphanRemoval=true)
      */
     private $tasks;
 
     /**
+     * @var Array
+     * 
      * @ORM\Column(type="json")
      */
     private $roles = [];
 
+    /**
+     * __construct User class
+     */
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
     }
 
-    public function getId()
+    /**
+     * @return Int|null
+     */
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUsername()
+    /**
+     * @see  UserInterface
+     */
+    public function getUsername(): ?string
     {
         return $this->username;
     }
 
-    public function setUsername($username)
+    /**
+     * @param String $username
+     * @return void
+     */
+    public function setUsername(String $username)
     {
         $this->username = $username;
     }
 
+    /**
+     * @see  UserInterface
+     */
     public function getSalt()
     {
         return null;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    public function setPassword($password)
+    /**
+     * @param String $password
+     * @return void
+     */
+    public function setPassword(String $password): void
     {
         $this->password = $password;
     }
 
-    public function getEmail()
+    /**
+     * @return string|null
+     */
+    public function getEmail(): ?string
     {
         return $this->email;
     }
 
-    public function setEmail($email)
+    /**
+     * @param String $email
+     * @return void
+     */
+    public function setEmail(String $email): void
     {
         $this->email = $email;
     }
 
+    /**
+     * @see UserInterface
+     */
     public function getRoles()
     {
         $roles = $this->roles;
@@ -105,9 +150,11 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @see  UserInterface
+     */
     public function eraseCredentials()
     {
-        
     }
 
     /**
@@ -118,6 +165,11 @@ class User implements UserInterface
         return $this->tasks;
     }
 
+    /**
+     * @param Task $task
+     *
+     * @return $this
+     */
     public function addTask(Task $task): self
     {
         if (!$this->tasks->contains($task)) {
@@ -128,6 +180,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param Task $task
+     *
+     * @return $this
+     */
     public function removeTask(Task $task): self
     {
         if ($this->tasks->removeElement($task)) {
@@ -140,6 +197,11 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @param array $roles
+     *
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;

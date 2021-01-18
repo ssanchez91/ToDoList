@@ -12,9 +12,24 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TaskControllerTest extends WebTestCase
 {
+    /**
+     * represent id user
+     */
     const USER_ID = 1;
+
+    /**
+     * represent id user with admin role
+     */
     const ADMIN_ID = 5;
+
+    /**
+     * represent id task
+     */
     const TASK_ID = 8;
+
+    /**
+     * represent id task of task not affected
+     */
     const ANONYMOUS_TASK_ID = 2;
 
     use FixturesTrait;
@@ -27,17 +42,47 @@ class TaskControllerTest extends WebTestCase
      */
     private $client;
 
+    /**
+     * Undocumented variable
+     *
+     * @var EntityManager
+     */
     private $entityManager;
 
+    /**
+     * userId variable
+     *
+     * @var Int
+     */
     private $userId;
 
+    /**
+     * userId variable for user with ROLE_ADMIN
+     *
+     * @var Int
+     */
     private $adminId;
 
+    /**
+     * represent a Task
+     *
+     * @var Task
+     */
     private $task;
 
+    /**
+     * represent Task without author
+     *
+     * @var Task
+     */
     private $anonymousTask;
 
 
+    /**
+     * setUp function
+     *
+     * @return void
+     */
     public function setUp(): void
     {
         $this->client = static::createClient();
@@ -45,19 +90,29 @@ class TaskControllerTest extends WebTestCase
         $this->entityManager->beginTransaction();
         $this->loadFixtures([UserFixtures::class, TaskFixtures::class]);
         $this->userId = $this->entityManager->getRepository('App:user')->findOneBy(['username' => 'user_1'])->getId();
-        $this->adminId = $this->entityManager->getRepository('App:user')->findOneBy(['username' => 'user_5'])->getId(); 
+        $this->adminId = $this->entityManager->getRepository('App:user')->findOneBy(['username' => 'user_5'])->getId();
         $this->task = $this->entityManager->getRepository('App:Task')->findBy(['Author' => $this->userId])[0];
         $this->anonymousTask = $this->entityManager->getRepository('App:Task')->findBy(['Author' => null])[0];
     }
 
-    public function testListTasks()
+    /**
+     * list tasks function
+     *
+     * @return void
+     */
+    public function testListTasks(): Void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:user')->find($this->userId));
         $this->client->request('GET', '/tasks');
-        $this->assertResponseIsSuccessful();       
+        $this->assertResponseIsSuccessful();
     }
 
-    public function testCreateTask()
+    /**
+     * create a new task
+     *
+     * @return void
+     */
+    public function testCreateTask(): void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:user')->find($this->userId));
         $crawler = $this->client->request('GET', '/tasks/create');
@@ -78,15 +133,20 @@ class TaskControllerTest extends WebTestCase
         $this->assertSelectorExists('.alert.alert-success');
     }
 
-    public function testEditTask()
+    /**
+     * edit a task function
+     *
+     * @return void
+     */
+    public function testEditTask(): void
     {
-        $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->userId));       
+        $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->userId));
 
-        $crawler = $this->client->request('GET', '/tasks'.'/'.$this->task->getId().'/edit');
+        $crawler = $this->client->request('GET', '/tasks' . '/' . $this->task->getId() . '/edit');
         $this->assertResponseIsSuccessful();
         $form = $crawler->selectButton('Modifier')->form([
             'task[title]' => $this->task->getTitle(),
-            'task[content]' => $this->task->getContent().' + la modification.'
+            'task[content]' => $this->task->getContent() . ' + la modification.'
         ]);
 
         $this->client->submit($form);
@@ -100,93 +160,110 @@ class TaskControllerTest extends WebTestCase
         $this->assertSelectorExists('.alert.alert-success');
 
         $taskUpdated = $this->entityManager->getRepository('App:Task')->find($this->task->getId());
-        $this->assertSame($this->task->getContent().' + la modification.', $taskUpdated->getContent());
+        $this->assertSame($this->task->getContent() . ' + la modification.', $taskUpdated->getContent());
     }
 
-    public function testToggleTaskDone()
+    /**
+     * toggle task like done
+     *
+     * @return void
+     */
+    public function testToggleTaskDone(): void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->userId));
-        $this->client->request('GET', '/tasks/'.$this->task->getId().'/toggle');
-        
+        $this->client->request('GET', '/tasks/' . $this->task->getId() . '/toggle');
+
         $session = $this->client->getContainer()->get('session');
         $flashes = $session->getBag('flashes')->all();
         $this->assertArrayHasKey('success', $flashes);
         $this->assertCount(1, $flashes['success']);
-        $title =$this->task->getTitle();
+        $title = $this->task->getTitle();
         $this->assertEquals("La tâche $title a bien été marquée comme faite.", current($flashes['success']));
         $this->assertResponseRedirects('/tasks');
         $this->client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
     }
 
-    public function testToggleTaskToDo()
+    /**
+     * toggle task like to do
+     *
+     * @return void
+     */
+    public function testToggleTaskToDo(): void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->userId));
         $this->task->toggle(!$this->task->isDone());
 
-        $this->client->request('GET', '/tasks/'.$this->task->getId().'/toggle');        
+        $this->client->request('GET', '/tasks/' . $this->task->getId() . '/toggle');
         $session = $this->client->getContainer()->get('session');
         $flashes = $session->getBag('flashes')->all();
         $this->assertArrayHasKey('success', $flashes);
         $this->assertCount(1, $flashes['success']);
-        $title =$this->task->getTitle();
+        $title = $this->task->getTitle();
         $this->assertEquals("La tâche $title a bien été marquée comme non terminée.", current($flashes['success']));
         $this->assertResponseRedirects('/tasks');
         $this->client->followRedirect();
         $this->assertSelectorExists('.alert.alert-success');
     }
-    
-    public function testDeleteTaskSuccess()
+
+    /**
+     * delete task with success
+     *
+     * @return void
+     */
+    public function testDeleteTaskSuccess(): void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->userId));
-        $this->client->request('GET', '/tasks/'.$this->task->getId().'/delete');
-     
+        $this->client->request('GET', '/tasks/' . $this->task->getId() . '/delete');
+
         $session = $this->client->getContainer()->get('session');
         $flashes = $session->getBag('flashes')->all();
         $this->assertArrayHasKey('success', $flashes);
         $this->assertCount(1, $flashes['success']);
         $this->assertEquals("La tâche a bien été supprimée.", current($flashes['success']));
-     
+
         $this->assertResponseRedirects('/tasks', Response::HTTP_FOUND);
     }
 
-    public function testDeleteTaskForbidden()
+    /**
+     * delete task with forbidden result
+     *
+     * @return void
+     */
+    public function testDeleteTaskForbidden(): void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->adminId));
-        $this->client->request('GET', '/tasks/'.$this->task->getId().'/delete');
+        $this->client->request('GET', '/tasks/' . $this->task->getId() . '/delete');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN, 'Vous n\'êtes pas autorisé à supprimer cette tâche.');
     }
 
-    public function testDeleteTaskAnonymousByUser()
+    /**
+     * delete anonymous task with a user. Forbidden result. 
+     *
+     * @return void
+     */
+    public function testDeleteTaskAnonymousByUser(): void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->userId));
-        $this->client->request('GET', '/tasks/'.$this->anonymousTask->getId().'/delete');       
+        $this->client->request('GET', '/tasks/' . $this->anonymousTask->getId() . '/delete');
         $this->assertResponseStatusCodeSame(Response::HTTP_FORBIDDEN, 'Vous n\'êtes pas autorisé à supprimer cette tâche.');
     }
 
-    public function testDeleteTaskAnonymousByAdmin()
+    /**
+     * delete anonymous task with admin user. Success result.
+     *
+     * @return void
+     */
+    public function testDeleteTaskAnonymousByAdmin(): void
     {
         $this->login($this->client, $this->entityManager->getRepository('App:User')->find($this->adminId));
-        $this->client->request('GET', '/tasks/'.$this->anonymousTask->getId().'/delete');       
+        $this->client->request('GET', '/tasks/' . $this->anonymousTask->getId() . '/delete');
         $session = $this->client->getContainer()->get('session');
         $flashes = $session->getBag('flashes')->all();
         $this->assertArrayHasKey('success', $flashes);
         $this->assertCount(1, $flashes['success']);
         $this->assertEquals("La tâche a bien été supprimée.", current($flashes['success']));
-        
+
         $this->assertResponseRedirects('/tasks', Response::HTTP_FOUND);
-    }    
-
-
-    //  /**
-    //  * run after test wich use entityManager.
-    //  *
-    //  * @return void
-    //  */
-    // protected function tearDown(): void
-    // {
-    //     parent::tearDown();
-    //     $this->entityManager->close();
-    //     $this->entityManager = null;
-    // }
+    }
 }

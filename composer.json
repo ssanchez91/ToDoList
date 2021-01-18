@@ -13,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">=5.5.9",
+        "php": ">=7.1.3",
         "doctrine/orm": "^2.5",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-cache-bundle": "^1.2",
@@ -31,7 +31,7 @@
         "composer/package-versions-deprecated": "1.11.99.1",
         "doctrine/doctrine-migrations-bundle": "^2.2",
         "symfony/proxy-manager-bridge": "^4.4",
-        "symfony/twig-bundle": "^4.4",
+        "symfony/twig-pack": "*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
         "sensio/framework-extra-bundle": "^5.6"
@@ -42,15 +42,16 @@
     "require-dev": {
         "phpunit/phpunit": "^7.5",
         "symfony/dotenv": "^4.4",
-        "symfony/maker-bundle": "^1.26",
+        "symfony/maker-bundle": "^1.0",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "symfony/stopwatch": "^4.4",
+        "symfony/debug-bundle": "^4.4",
         "symfony/web-profiler-bundle": "^4.4",
-        "symfony/var-dumper": "^5.2",
-        "symfony/phpunit-bridge": "^5.2",
-        "symfony/browser-kit": "^5.2",
-        "symfony/css-selector": "^5.2",
-        "liip/test-fixtures-bundle": "^1.11"
+        "symfony/var-dumper": "^4.4",
+        "symfony/browser-kit": "^4.4",
+        "symfony/css-selector": "^4.4",
+        "liip/test-fixtures-bundle": "^1.11",
+        "symfony/phpunit-bridge": "^5.2"
     },
     "scripts": {
         "post-install-cmd": [
