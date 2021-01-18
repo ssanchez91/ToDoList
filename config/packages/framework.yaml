@@ -19,3 +19,8 @@ framework:
     
     validation:
         enable_annotations: true
+
+    cache:
+        pools:
+            doctrine.result_cache_pool:
+                adapter: cache.app

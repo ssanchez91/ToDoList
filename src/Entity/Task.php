@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TaskRepository;
+use DateTime;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -13,6 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Task
 {
     /**
+     * @var Int
+     * 
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -20,55 +25,81 @@ class Task
     protected $id;
 
     /**
+     * @var DateTimeInterface
+     * 
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
+     * @var String
+     * 
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Vous devez saisir un titre.")
      */
     private $title;
 
     /**
+     * @var String
+     * 
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Vous devez saisir du contenu.")
      */
     private $content;
 
     /**
+     * @var bool
+     * 
      * @ORM\Column(type="boolean")
      */
     private $isDone;
 
     /**
+     * @var User
+     * 
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
      * @ORM\JoinColumn(nullable=true)
      */
     private $Author;
 
+    /**
+     * __construct Task Class
+     */
     public function __construct()
     {
         $this->createdAt = new \Datetime();
         $this->isDone = false;
     }
 
-    public function getId()
+    /**
+     * @return Int|null
+     */
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCreatedAt()
+    /**
+     * @return DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt($createdAt)
+    /**
+     * @param DateTimeInterface $createdAt
+     * @return void
+     */
+    public function setCreatedAt(DateTimeInterface $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
-    public function getTitle()
+    /**
+     * @return String|null
+     */
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -78,7 +109,10 @@ class Task
         $this->title = $title;
     }
 
-    public function getContent()
+    /**
+     * @return String|null
+     */
+    public function getContent(): ?string
     {
         return $this->content;
     }
@@ -88,16 +122,26 @@ class Task
         $this->content = $content;
     }
 
-    public function isDone()
+    /**
+     * @return bool
+     */
+    public function isDone(): bool
     {
         return $this->isDone;
     }
 
-    public function toggle($flag)
+    /**
+     * @param boolean $flag
+     * @return void
+     */
+    public function toggle(bool $flag): void
     {
         $this->isDone = $flag;
     }
 
+    /**
+     * @return User|null
+     */
     public function getAuthor(): ?User
     {
         return $this->Author;
